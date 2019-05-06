@@ -1,5 +1,7 @@
 <?php
 
-RouteProvider::get('/', '');
+RouteProvider::any('/', function() {
+    echo 'Welcome to Darwin framework.';
+});
 
-RouteProvider::resolve('/', 'GET');
+RouteProvider::resolve('/');
