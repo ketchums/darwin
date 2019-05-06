@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Controllers\SomeController;
+
 class DependencyProvider {
 
     /**
@@ -20,11 +22,15 @@ class DependencyProvider {
     }
 
     /**
-     * Returns the class object associated with the name passed.
+     * Returns the class object associated with the name passed, creates the object if missing.
      *
      * @param string $name The name of the class to return the object for.
      */
     public function fetch($name) {
+        if (!array_key_exists($name, self::$cache)) {
+            self::register($name, new $name());
+        }
+
         return self::$cache[$name];
     }
 }
