@@ -1,0 +1,11 @@
+{
+    "name": "darwin/framework",
+    "description": "An MVC framework for PHP developers.",
+    "type": "framework",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/app"
+        }
+    }
+}

@@ -1,4 +1,4 @@
 <?php
 
-include ROOT . '/src/app/Providers/RouteProvider.php';
-include 'routes.php';
+include ROOT . '/vendor/autoload.php';
+include ROOT . '/src/routes.php';

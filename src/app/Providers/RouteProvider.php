@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Providers;
+
 class RouteProvider {
 
     private static $routes = [];
@@ -75,6 +77,10 @@ class RouteProvider {
             exit('method not allowed');
         }
 
-        $routeConfig[1]();
+        $callback = $routeConfig[1];
+
+        if (is_callable($callback)) {
+            $callback();
+        }
     }
 }
