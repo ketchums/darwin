@@ -2,8 +2,5 @@
 
 use App\Providers\RouteProvider;
 
-RouteProvider::any('/', function() {
-    echo 'Welcome to Darwin framework.';
-});
-
-RouteProvider::resolve('/');
+RouteProvider::any('/', ['SomeController', 'someMethod']);
+RouteProvider::resolve($_SERVER['REQUEST_URI']);

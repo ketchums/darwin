@@ -69,18 +69,25 @@ class RouteProvider {
      * @param string $route The route to associate the callback with.
      */
     public static function resolve($route) {
+        if (!array_key_exists($route, self::$routes)) {
+            exit('TODO: 404');
+        }
+
         $routeConfig = self::$routes[$route];
         $methodsAllowed = $routeConfig[0];
         $method = $_SERVER['REQUEST_METHOD'];
 
         if (!in_array($method, $methodsAllowed)) {
-            exit('method not allowed');
+            exit('TODO: 405');
         }
 
         $callback = $routeConfig[1];
 
         if (is_callable($callback)) {
             $callback();
+        }
+        else {
+            call_user_func(array(DependencyProvider::fetch($callback[0]), $callback[1])); 
         }
     }
 }
