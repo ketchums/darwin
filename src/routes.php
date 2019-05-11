@@ -2,5 +2,5 @@
 
 use App\Providers\RouteProvider;
 
-RouteProvider::any('/', ['SomeController', 'someMethod']);
+RouteProvider::any('/', ['App\Controllers\SomeController', 'someMethod']);
 RouteProvider::resolve($_SERVER['REQUEST_URI']);

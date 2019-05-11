@@ -26,9 +26,7 @@ class DependencyProvider {
      */
     public function fetch($name) {
         if (!array_key_exists($name, self::$cache)) {
-            $object = new $name();
-            self::register($name, $object);
-            return $object;
+            self::register($name, new $name());
         }
 
         return self::$cache[$name];
