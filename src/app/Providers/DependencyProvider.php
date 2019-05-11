@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Controllers\SomeController;
-
 class DependencyProvider {
 
     /**
@@ -28,7 +26,9 @@ class DependencyProvider {
      */
     public function fetch($name) {
         if (!array_key_exists($name, self::$cache)) {
-            self::register($name, new $name());
+            $object = new $name();
+            self::register($name, $object);
+            return $object;
         }
 
         return self::$cache[$name];
