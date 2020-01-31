@@ -1,6 +1,6 @@
 <?php
 
-use App\Providers\RouteProvider;
+$router = new App\Providers\RouteProvider();
 
-RouteProvider::any('/', ['App\Controllers\SomeController', 'someMethod']);
-RouteProvider::resolve($_SERVER['REQUEST_URI']);
+$router->any('/', ['App\Controllers\SomeController', 'someMethod']);
+$router->resolve($_SERVER['REQUEST_URI']);

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 class RouteProvider {
 
-    private static $routes = [];
+    private $routes = [];
 
     /**
      * Registers a route for the GET request method.
@@ -12,8 +12,8 @@ class RouteProvider {
      * @param string $route The route to register it to.
      * @param method $callback The callback to call if hit.
      */
-    public static function get($route, $callback) {
-        self::register($route, ['GET'], $callback);
+    public function get($route, $callback) {
+        $this->register($route, ['GET'], $callback);
     }
 
     /**
@@ -22,8 +22,8 @@ class RouteProvider {
      * @param string $route The route to register it to.
      * @param method $callback The callback to call if hit.
      */
-    public static function post($route, $callback) {
-        self::register($route, ['POST'], $callback);
+    public function post($route, $callback) {
+        $this->register($route, ['POST'], $callback);
     }
 
     /**
@@ -32,8 +32,8 @@ class RouteProvider {
      * @param string $route The route to register it to.
      * @param method $callback The callback to call if hit.
      */
-    public static function any($route, $callback) {
-        self::register($route, ['GET', 'POST'], $callback);
+    public function any($route, $callback) {
+        $this->register($route, ['GET', 'POST'], $callback);
     }
 
     /**
@@ -43,8 +43,8 @@ class RouteProvider {
      * @param array $methods The array of methods to accept.
      * @param method $callback The callback to call if hit.
      */
-    public static function add($route, $methods, $callback) {
-        self::register($route, $methods, $callback);
+    public function add($route, $methods, $callback) {
+        $this->register($route, $methods, $callback);
     }
 
     /**
@@ -54,13 +54,13 @@ class RouteProvider {
      * @param array $methods The array of methods to accept.
      * @param method $callback The callback to call if hit.
      */
-    private static function register($route, $methods, $callback) {
-        if (array_key_exists($route, self::$routes)) {
-            array_push(self::$routes[$route][0], $methods);
+    private function register($route, $methods, $callback) {
+        if (array_key_exists($route, $this->routes)) {
+            array_push($this->routes[$route][0], $methods);
             return;
         }
 
-        self::$routes[$route] = [$methods, $callback];
+        $this->routes[$route] = [$methods, $callback];
     }
     
     /**
@@ -68,12 +68,12 @@ class RouteProvider {
      *
      * @param string $route The route to associate the callback with.
      */
-    public static function resolve($route) {
-        if (!array_key_exists($route, self::$routes)) {
+    public function resolve($route) {
+        if (!array_key_exists($route, $this->routes)) {
             exit('TODO: 404');
         }
 
-        $routeConfig = self::$routes[$route];
+        $routeConfig = $this->routes[$route];
         $methodsAllowed = $routeConfig[0];
         $method = $_SERVER['REQUEST_METHOD'];
 
