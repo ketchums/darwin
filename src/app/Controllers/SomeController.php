@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class SomeController extends BaseController {
+class SomeController {
     public function someMethod() {
         echo 'testing';
     }    
