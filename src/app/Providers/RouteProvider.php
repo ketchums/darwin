@@ -12,8 +12,8 @@ class RouteProvider {
      * @param string $route The route to register it to.
      * @param method $callback The callback to call if hit.
      */
-    public function get($route, $callback) {
-        $this->register($route, ['GET'], $callback);
+    public function addGet($route, $callback) {
+        $this->add($route, ['GET'], $callback);
     }
 
     /**
@@ -22,18 +22,8 @@ class RouteProvider {
      * @param string $route The route to register it to.
      * @param method $callback The callback to call if hit.
      */
-    public function post($route, $callback) {
-        $this->register($route, ['POST'], $callback);
-    }
-
-    /**
-     * Registers a route for all request methods
-     *
-     * @param string $route The route to register it to.
-     * @param method $callback The callback to call if hit.
-     */
-    public function any($route, $callback) {
-        $this->register($route, ['GET', 'POST'], $callback);
+    public function addPost($route, $callback) {
+        $this->add($route, ['POST'], $callback);
     }
 
     /**
@@ -44,22 +34,6 @@ class RouteProvider {
      * @param method $callback The callback to call if hit.
      */
     public function add($route, $methods, $callback) {
-        $this->register($route, $methods, $callback);
-    }
-
-    /**
-     * Registers a route, or appends the methods if exists.
-     *
-     * @param string $route The route to register it to.
-     * @param array $methods The array of methods to accept.
-     * @param method $callback The callback to call if hit.
-     */
-    private function register($route, $methods, $callback) {
-        if (array_key_exists($route, $this->routes)) {
-            array_push($this->routes[$route][0], $methods);
-            return;
-        }
-
         $this->routes[$route] = [$methods, $callback];
     }
     
