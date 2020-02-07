@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Components\Response;
+
 class RouteProvider {
 
     private $routes = [];
@@ -38,13 +40,13 @@ class RouteProvider {
     }
     
     /**
-     * Executes the callback for the selected route.
+     * Executes the callback for the selected route and returns the response.
      *
      * @param string $route The route to associate the callback with.
      */
-    public function resolve($route) {
+    public function getResponse($route) : Response {
         if (!array_key_exists($route, $this->routes)) {
-            exit('TODO: 404');
+            return new Response(404, 'Not Found');
         }
 
         $routeConfig = $this->routes[$route];
@@ -52,16 +54,16 @@ class RouteProvider {
         $method = $_SERVER['REQUEST_METHOD'];
 
         if (!in_array($method, $methodsAllowed)) {
-            exit('TODO: 405');
+            return new Response(405, 'Method not allowed');
         }
 
         $callback = $routeConfig[1];
 
         if (is_callable($callback)) {
-            $callback();
+            return $callback();
         }
         else {
-            call_user_func(array(DependencyProvider::fetch($callback[0]), $callback[1])); 
+            return call_user_func(array(DependencyProvider::fetch($callback[0]), $callback[1])); 
         }
     }
 }

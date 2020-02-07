@@ -8,8 +8,7 @@ class DatabaseProvider
         $this->connection = mysqli_connect($host, $username, $password, $database);
 
         if (!$this->connection) {
-            echo "Unable to connect to MySQL.";
-            exit();
+            throw new Exception("Failed to connect to the database.");
         }
     }
 
